@@ -20,6 +20,16 @@
     <None Update="Data\Data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Templates\LetterTemplate.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- NuGet packages for document generation -->
+  <ItemGroup>
+    <PackageReference Include="DocX" Version="3.0.0" />
+    <PackageReference Include="FreeSpire.Doc" Version="12.2.0" />
+    <PackageReference Include="Spire.Doc" Version="12.1.0" />
   </ItemGroup>
 
 </Project>
