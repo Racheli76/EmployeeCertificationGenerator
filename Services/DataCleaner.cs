@@ -9,8 +9,7 @@ namespace EmployeeCertificationGenerator.Services
     public class DataCleaner
     {
         /// <summary>
-        /// Cleans a list of employees by normalizing names and removing duplicates.
-        /// Performs both operations in a single pass for memory efficiency.
+        /// Cleans a list of employees by normalizing names and removing duplicates in a single pass for memory efficiency.
         /// </summary>
         /// <param name="employees">List of employees to clean</param>
         /// <returns>Cleaned list with normalized names and no duplicates</returns>
@@ -25,14 +24,11 @@ namespace EmployeeCertificationGenerator.Services
 
             foreach (var employee in employees)
             {
-                // Step 1: Normalize employee data first
                 NormalizeEmployee(employee);
 
-                // Step 2: Create unique key for duplicate detection
-                // Using ToLower() for case-insensitive comparison ensures robustness
+                // Create unique key using case-insensitive comparison for robust duplicate detection
                 var key = $"{employee.FirstName.ToLower()}_{employee.LastName.ToLower()}_{employee.Department.ToLower()}";
 
-                // Step 3: Only add if not seen before
                 if (!seen.Contains(key))
                 {
                     seen.Add(key);
@@ -55,6 +51,7 @@ namespace EmployeeCertificationGenerator.Services
 
         /// <summary>
         /// Converts a name to proper case (first letter uppercase, rest lowercase).
+        /// Handles edge cases: empty strings, single characters, and whitespace trimming.
         /// Example: "JOHN" → "John", "john" → "John", "A" → "A", "jOhN" → "John"
         /// </summary>
         private string NormalizeName(string name)
@@ -62,18 +59,14 @@ namespace EmployeeCertificationGenerator.Services
             if (string.IsNullOrWhiteSpace(name))
                 return string.Empty;
 
-            // Trim whitespace
             name = name.Trim();
 
-            // Handle empty result after trimming
             if (name.Length == 0)
                 return string.Empty;
 
-            // Handle single character - just uppercase it
             if (name.Length == 1)
                 return name.ToUpper();
 
-            // Safe to use Substring(1) since length is at least 2
             return char.ToUpper(name[0]) + name.Substring(1).ToLower();
         }
 

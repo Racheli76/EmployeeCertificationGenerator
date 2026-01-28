@@ -1,26 +1,24 @@
 namespace EmployeeCertificationGenerator.Services
 {
     /// <summary>
-    /// Represents the outcome of an employee's certification.
+    /// Certification outcome: Failed (less than 70), Passed (70-89), or PassedExcellent (90+, leadership track eligible).
     /// </summary>
     public enum CertificationResult
     {
-        Failed,           // Score < 70
-        Passed,           // Score 70-89
-        PassedExcellent   // Score >= 90
+        Failed,
+        Passed,
+        PassedExcellent
     }
 
     /// <summary>
-    /// Determines the certification result based on final score.
-    /// Business rules:
-    /// - Failed: < 70
-    /// - Passed: 70-89
-    /// - PassedExcellent: >= 90
+    /// Resolves certification status based on final score using business-defined thresholds.
     /// </summary>
     public class CertificationResolver
     {
-        // Business rule thresholds - centralized for easy maintenance
+        /// <summary>Business requirement: Minimum score to pass certification (70 points).</summary>
         private const double PASSING_SCORE = 70.0;
+
+        /// <summary>Business requirement: Minimum score for leadership track eligibility (90 points).</summary>
         private const double EXCELLENCE_SCORE = 90.0;
 
         /// <summary>
